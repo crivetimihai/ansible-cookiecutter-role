@@ -1,17 +1,11 @@
 # Molecule managed
 ---
-file:
-  /usr/bin/{{ cookiecutter.role_name }}:
-    exists: true
-    owner: root
-    group: root
-
 command:
   help:
     exit-status: 0
-    exec: "{{ cookiecutter.role_name }} --help"
+    exec: "systemctl is-active {{ cookiecutter.role_name }}"
     stdout:
-      - "/{{ cookiecutter.role_name }}/"
+      - "/active/"
     stderr: []
     timeout: 10000      # in milliseconds
     skip: false
