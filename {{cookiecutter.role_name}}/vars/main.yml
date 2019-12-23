@@ -1,0 +1,73 @@
+---
+# vars file for packages
+
+# Services to enable
+_{{ cookiecutter.role_name }}_services_enable:
+  all: []
+  CentOS_7: []
+  RedHat_7: []
+  CentOS_8: []
+  RedHat_8: []
+  Fedora_31: []
+
+# Repo RPM packages
+_{{ cookiecutter.role_name }}_packages_repos:
+  all: []
+  CentOS_7:
+    - https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+  RedHat_7:
+    - https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+  CentOS_8:
+    - https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+  RedHat_8:
+    - https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+  Fedora31: []
+
+# Remove packages: uninstall if found
+_{{ cookiecutter.role_name }}_packages_remove:
+  all: []
+  CentOS_7: []
+  RedHat_7: []
+  CentOS_8: []
+  RedHat_8: []
+  Fedora_31: []
+
+# Prereq packages: they get installed first
+_{{ cookiecutter.role_name }}_packages_prereq:
+  all: []
+  CentOS_7: []
+  RedHat_7: []
+  CentOS_8: []
+  RedHat_8: []
+  Fedora_31: []
+
+# install packages
+_{{ cookiecutter.role_name }}_packages_install:
+  all: []
+  CentOS_7: []
+  RedHat_7: []
+  CentOS_8: []
+  RedHat_8: []
+  Fedora_31: []
+
+# Detected OS
+my_os: ansible_distribution + '_' + ansible_distribution_major_version
+
+# Services Enable
+{{ cookiecutter.role_name }}_services_enable: {% raw %}"{{ _{% endraw %}{{ cookiecutter.role_name }}{% raw %}_services_enable['all']
+  | union ( _{% endraw %}{{ cookiecutter.role_name }}{% raw %}_services_enable[my_os]
+  | default([]) ) }}"{% endraw %}
+
+# Packages lists
+{{ cookiecutter.role_name }}_packages_remove: {% raw %}"{{ _{% endraw %}{{ cookiecutter.role_name }}{% raw %}_packages_remove['all']
+  | union ( _{% endraw %}{{ cookiecutter.role_name }}{% raw %}_packages_remove[my_os]
+  | default([]) ) }}"{% endraw %}
+{{ cookiecutter.role_name }}_packages_repos: {% raw %}"{{ _{% endraw %}{{ cookiecutter.role_name }}{% raw %}_packages_repos['all']
+  | union ( _{% endraw %}{{ cookiecutter.role_name }}{% raw %}_packages_repos[my_os]
+  | default([]) ) }}"{% endraw %}
+{{ cookiecutter.role_name }}_packages_prereq: {% raw %}"{{ _{% endraw %}{{ cookiecutter.role_name }}{% raw %}_packages_prereq['all']
+  | union ( _{% endraw %}{{ cookiecutter.role_name }}{% raw %}_packages_prepreq[my_os]
+  | default([]) ) }}"{% endraw %}
+{{ cookiecutter.role_name }}_packages_install: {% raw %}"{{ _{% endraw %}{{ cookiecutter.role_name }}{% raw %}_packages_install['all']
+  | union ( _{% endraw %}{{ cookiecutter.role_name }}{% raw %}_packages_install[my_os]
+  | default([]) ) }}"{% endraw %}

@@ -1,0 +1,29 @@
+---
+{% raw %}
+- name: firewalld is installed
+  package:
+    name: firewalld
+    state: present
+  become: true
+
+- name: firewalld service is active
+  service:
+    name: firewalld
+    state: started
+    enabled: true
+  become: true
+
+- name: firewall is configured
+  firewalld:
+    source: "{{ item.source if item.source is defined else omit }}"
+    zone: "{{ item.zone if item.zone is defined else omit }}"
+    permanent: true
+    state: "{{ item.state | default('enabled') }}"
+    service: "{{ item.service if item.service is defined else omit }}"
+    immediate: true
+    port: "{{ item.port if item.port is defined else omit }}"{% endraw %}
+  loop: "{{ '{{ '}}{{ cookiecutter.role_name }}_{% raw %}firewall_rules }}"{% endraw %}
+  notify: reload firewalld
+  become: true
+  when: "{{ cookiecutter.role_name }}_firewall_configure"
+  tags: notest

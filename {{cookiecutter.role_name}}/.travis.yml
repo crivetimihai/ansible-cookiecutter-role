@@ -1,0 +1,23 @@
+---
+language: python
+services: docker
+
+env:
+  global:
+    - ROLE_NAME: {{ cookiecutter.role_name }}
+  matrix:
+    - CONTAINER_DISTRO=centos CONTAINER_VERSION=7
+    - CONTAINER_DISTRO=centos CONTAINER_VERSION=8
+    - CONTAINER_DISTRO=fedora CONTAINER_VERSION=31
+
+install:
+  # Install test dependencies.
+  - pip install molecule[docker]
+
+before_script: []
+
+script:
+  - molecule test
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/

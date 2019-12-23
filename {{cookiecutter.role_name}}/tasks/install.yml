@@ -1,0 +1,27 @@
+---
+# Install {{ cookiecutter.role_name }} packages
+
+- name: unwanted packages are removed
+  package:
+    name: {% raw %}"{{ {% endraw %}{{ cookiecutter.role_name }}_{% raw %}packages_remove }}"{% endraw %}
+    state: absent
+  become: true
+  when: {{ cookiecutter.role_name }}_remove_packages
+
+- name: prereq repositories are installed
+  package:
+    name: {% raw %}"{{ {% endraw %}{{ cookiecutter.role_name }}_{% raw %}packages_repos }}"{% endraw %}
+    state: present
+  become: true
+
+- name: prereq packages are installed
+  package:
+    name: {% raw %}"{{ {% endraw %}{{ cookiecutter.role_name }}_{% raw %}packages_prereq }}"{% endraw %}
+    state: present
+  become: true
+
+- name: packages are installed
+  package:
+    name: {% raw %}"{{ {% endraw %}{{ cookiecutter.role_name }}_{% raw %}packages_install }}"{% endraw %}
+    state: present
+  become: true

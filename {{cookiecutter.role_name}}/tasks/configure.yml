@@ -1,0 +1,11 @@
+---
+# Configure {{ cookiecutter.role_name }}
+{% raw %}
+- name: enable service {{ item }}, and start if not started
+  service:
+    name: "{{ item }}"
+    enabled: true
+    state: started
+  become: true{% endraw %}
+  loop: "{{ '{{ ' }}{{ cookiecutter.role_name }}_services_enable {{ '}}' }}"
+  when: {{ cookiecutter.role_name }}_enable_service
