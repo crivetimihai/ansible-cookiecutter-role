@@ -5,6 +5,7 @@
     name: firewalld
     state: present
   become: true
+  tags: notest
 
 - name: firewalld service is active
   service:
@@ -12,6 +13,7 @@
     state: started
     enabled: true
   become: true
+  tags: notest
 
 - name: firewall is configured
   firewalld:
