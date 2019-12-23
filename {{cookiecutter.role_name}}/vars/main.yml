@@ -1,6 +1,17 @@
 ---
 # vars file for packages
 
+# Configuration templates to copy
+_{{ cookiecutter.role_name }}_templates_copy:
+  all:
+    - src: test.j2
+      dest: /tmp/test
+  CentOS_7: []
+  RedHat_7: []
+  CentOS_8: []
+  RedHat_8: []
+  Fedora_31: []
+
 # Services to enable
 _{{ cookiecutter.role_name }}_services_enable:
   all: []
@@ -52,6 +63,11 @@ _{{ cookiecutter.role_name }}_packages_install:
 
 # Detected OS
 my_os: ansible_distribution + '_' + ansible_distribution_major_version
+
+# Templates Copy
+{{ cookiecutter.role_name }}_templates_copy: {% raw %}"{{ _{% endraw %}{{ cookiecutter.role_name }}{% raw %}_templates_copy['all']
+  | union ( _{% endraw %}{{ cookiecutter.role_name }}{% raw %}_templates_copy[my_os]
+  | default([]) ) }}"{% endraw %}
 
 # Services Enable
 {{ cookiecutter.role_name }}_services_enable: {% raw %}"{{ _{% endraw %}{{ cookiecutter.role_name }}{% raw %}_services_enable['all']

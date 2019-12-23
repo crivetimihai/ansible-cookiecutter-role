@@ -1,0 +1,10 @@
+---
+# Template configuration files for {{ cookiecutter.role_name }}
+{% raw %}
+- name: template configuration {{ item.template }}
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  become: true{% endraw %}
+  loop: "{{ '{{ ' }}{{ cookiecutter.role_name }}_templates_copy {{ '}}' }}"
+  when: {{ cookiecutter.role_name }}_copy_templates

@@ -21,5 +21,6 @@
   tags: vars
 
 - include: install.yml
+- include: template.yml
 - include: configure.yml
 - include: firewalld.yml{% endraw %}
