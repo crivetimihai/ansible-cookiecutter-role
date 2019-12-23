@@ -28,7 +28,11 @@ Example Playbook
       import_role:
         name: {{ cookiecutter.role_name }}
       vars:
-        {{ cookiecutter.role_name }}_install_repos: yes
+        {{ cookiecutter.role_name }}_remove_packages: true
+        {{ cookiecutter.role_name }}_enable_service: true
+        {{ cookiecutter.role_name }}_firewall_configure: true
+        {{ cookiecutter.role_name }}_firewall_rules:
+          - service: service_name
       tags: {{ cookiecutter.role_name }}
 
 License
